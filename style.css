@@ -1,0 +1,67 @@
+@media screen and (max-width: 450px) {
+  #i2 {
+    font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+    background-color: rgb(0, 0, 0);
+    text-align: center;
+    padding-top: 5px;
+    margin-top: 10px;
+    width: 100%;
+  }
+  .i13, .i14 {
+    width: 40px;
+    height: 35px;
+  }
+  #h1 {
+    font-size: 30px;
+    width: 100%;
+  }
+  .header1,
+  .footer,
+  .header {
+    flex-direction: column;
+  }
+  .container,
+  .container1 {
+    grid-template-columns: 1fr;
+  }
+  .innerheader1 {
+    padding: 2px;
+    display: flex;
+    justify-content: space-between;
+  }
+  #i5, #i7, #i6 {
+    height: -moz-fit-content;
+    height: fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    padding: 50px;
+  }
+  .i6,
+  .i16 {
+    height: -moz-fit-content;
+    height: fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+  }
+  .i16 {
+    padding: 2px;
+  }
+  .i17 {
+    font-size: 30px;
+  }
+  .e1 {
+    text-align: center;
+    width: 120px;
+    height: 35px;
+    border: solid 2px white;
+    border-radius: 5px;
+    padding: 2px;
+  }
+  .button {
+    height: 50px;
+    width: 150px;
+    font-size: 25px;
+  }
+}/*# sourceMappingURL=style.css.map */
