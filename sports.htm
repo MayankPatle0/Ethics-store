@@ -6,48 +6,64 @@
     <title>Document</title><link rel="stylesheet" href="prac12css.css"><link rel="stylesheet" href="style.css">
 </head>
 <script>
-    let cart = [];
-    let total = 0;
+        // Initialize cart from localStorage
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+// Function to add an item to the cart
+function addToCart(itemName, itemPrice) {
+    // Check if the item already exists in the cart
+    const existingItemIndex = cart.findIndex(item => item.name === itemName);
     
-    function addToCart(itemName, itemPrice) {
-        // Add item to cart array
+    if (existingItemIndex > -1) {
+        // Item already exists; you can choose to update its quantity or notify the user
+        alert(`${itemName} is already in the cart.`);
+    } else {
+        // Add new item to the cart
         cart.push({ name: itemName, price: itemPrice });
-    
-        // Update total price
-        total += itemPrice;
-    
-        // Save the cart and total to localStorage
-        saveCartToLocalStorage();
-    
-        // Show an alert box
-        alert(`${itemName} has been added to your cart.`);
-    
-        // Render the cart on the current page
-        renderCart();
-    }
-    
-    function saveCartToLocalStorage() {
+        
+        // Save updated cart to localStorage
         localStorage.setItem('cart', JSON.stringify(cart));
-        localStorage.setItem('total', total);
+        
+        // Notify user
+        alert(`${itemName} has been added to your cart.`);
     }
-    
-    function renderCart() {
-        const cartItemsElement = document.getElementById('cart-items');
-        const cartTotalElement = document.getElementById('cart-total');
-    
-        // Clear current cart list
-        cartItemsElement.innerHTML = '';
-    
-        // Add each item in the cart
-        cart.forEach(item => {
-            const li = document.createElement('li');
-            li.textContent = `${item.name} - ₹${item.price}`;
-            cartItemsElement.appendChild(li);
-        });
-    
-        // Update total price
-        cartTotalElement.textContent = total;
-    }
+}
+
+// Function to load and render the cart from localStorage
+function loadCartFromLocalStorage() {
+    const cartItemsElement = document.getElementById('cart-items');
+    const cartTotalElement = document.getElementById('cart-total');
+
+    // Clear current cart list
+    cartItemsElement.innerHTML = '';
+
+    // Calculate total price
+    let total = 0;
+
+    // Add each item in the cart
+    cart.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = `${item.name} - ₹${item.price}`;
+        cartItemsElement.appendChild(li);
+        total += parseFloat(item.price); // Update total price
+    });
+
+    // Update total price display
+    cartTotalElement.textContent = `₹${total.toFixed(2)}`;
+}
+
+// Function to clear the cart
+function clearCart() {
+    localStorage.removeItem('cart');
+    cart = []; // Reset local variable
+    loadCartFromLocalStorage(); // Reload empty cart display
+    alert('Cart has been cleared!');
+}
+
+// Load existing items when the page loads
+window.onload = () => {
+    loadCartFromLocalStorage();
+};
 </script>
 <body>
     <img class="i13" src="final logo.jpg" alt=""><img class="i14" src="final logo.jpg" alt=""><p id="h1">ETHICS STORE</p>
