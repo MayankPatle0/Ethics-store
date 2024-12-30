@@ -5,48 +5,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title> <link rel="stylesheet" href="prac12css.css"><link rel="stylesheet" href="style.css">
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         const myForm = document.getElementById("myForm");
-    
-        myForm.addEventListener("submit", function(event) {
+
+        myForm.addEventListener("submit", function (event) {
             event.preventDefault(); // Prevent the form from submitting
-    
+
             // Get values from input fields
             const email = document.getElementById("email").value;
             const password = document.getElementById("password").value;
             const confirmPassword = document.getElementById("confirmPassword").value;
             const phone = document.getElementById("phone").value;
-    
+
             // Validate passwords match
             if (password !== confirmPassword) {
                 alert("Passwords do not match!");
                 return;
             }
-    
-            // Get existing user data from localStorage or initialize an empty array
-            let usersData = JSON.parse(localStorage.getItem("usersData")) || [];
-    
+
+            // Generate a unique key for each user
+            const userCountKey = "userCount";
+            let userCount = parseInt(localStorage.getItem(userCountKey)) || 0;
+
             // Check if the limit of 10 users is reached
-            if (usersData.length >= 10) {
+            if (userCount >= 10) {
                 alert("Cannot store more than 10 users!");
                 return;
             }
-    
+
             // Create a new user object
             const newUser = {
                 email: email,
                 password: password,
                 phone: phone
             };
-    
-            // Add the new user to the array
-            usersData.push(newUser);
-    
-            // Store the updated array back into localStorage
-            localStorage.setItem("usersData", JSON.stringify(usersData));
-    
+
+            // Store the new user in a unique key
+            const userKey = `user_${userCount + 1}`;
+            localStorage.setItem(userKey, JSON.stringify(newUser));
+
+            // Update the user count
+            userCount += 1;
+            localStorage.setItem(userCountKey, userCount);
+
             alert("Data stored successfully!");
-            
+
             // Optionally, clear the form fields
             myForm.reset();
             window.location.href = "index.html";
