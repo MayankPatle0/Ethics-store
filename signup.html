@@ -23,15 +23,27 @@
                 return;
             }
     
-            // Create a user object
-            const userData = {
+            // Get existing user data from localStorage or initialize an empty array
+            let usersData = JSON.parse(localStorage.getItem("usersData")) || [];
+    
+            // Check if the limit of 10 users is reached
+            if (usersData.length >= 10) {
+                alert("Cannot store more than 10 users!");
+                return;
+            }
+    
+            // Create a new user object
+            const newUser = {
                 email: email,
                 password: password,
                 phone: phone
             };
     
-            // Store user data in localStorage
-            localStorage.setItem("userData", JSON.stringify(userData));
+            // Add the new user to the array
+            usersData.push(newUser);
+    
+            // Store the updated array back into localStorage
+            localStorage.setItem("usersData", JSON.stringify(usersData));
     
             alert("Data stored successfully!");
             
